@@ -2,32 +2,30 @@ import React, {Component} from 'react';
 import "./post-list-item.css";
 
 class PostListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            important: false,
-            like: false
-        };
-        this.onImportant = this.onImportant.bind(this);  //привязка к контексту
-        this.onLike = this.onLike.bind(this);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         important: false,
+    //         like: false
+    //     };
+    //     this.onImportant = this.onImportant.bind(this);  //привязка к контексту
+    //     this.onLike = this.onLike.bind(this);
+    // }
 
-    onImportant() {
-        this.setState(({important}) => ({
-            important: !important,          //замена state.important на противоположное значение
-        }))
-    }
+    // onImportant() {
+    //     this.setState(({important}) => ({
+    //         important: !important,          //замена state.important на противоположное значение
+    //     }))
+    // }
 
-    onLike() {
-        this.setState(({like}) => ({
-            like: !like
-        }))
-    }
+    // onLike() {
+    //     this.setState(({like}) => ({
+    //         like: !like
+    //     }))
+    // }
 
     render() {
-        const {label} = this.props;
-        const {important} = this.state;
-        const {like} = this.state;
+        const {label, onDelete, onToggleImportant, onToggleLiked, important, like} = this.props;
         let classNames = "app-list-item d-flex justify-content-between";
         if(important) {
             classNames += ' important';
@@ -39,17 +37,18 @@ class PostListItem extends Component {
             <div>
             <div className={classNames}>
                 <span className='app-list-item-label' 
-                      onClick={this.onLike}>
+                      onClick={onToggleLiked}>
                     {label}
                 </span>
                 <div className='d-flex justify-content-center align-items-center app-list-item'>
                     <button type="button" 
                     className='btn-star btn-sm' 
-                    onClick={this.onImportant}>
+                    onClick={onToggleImportant}>
                         <i className='fa fa-star'></i>  {/*font awesome*/}
                     </button>
                     <button type="button" 
-                    className='btn-trash btn-sm'>
+                    className='btn-trash btn-sm' 
+                    onClick={onDelete}>
                         <i className='fa fa-trash-o'></i>
                     </button>
                     <i className='fa fa-heart'></i>
